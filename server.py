@@ -15,12 +15,17 @@ class meeting_rooms:
 		collection = db.test_collection
 			
 		ret_val = collection.find_one({"name": room_name})		
+	
 		#check if a value was returned, else will error out when trying to read hash
 		if ret_val:
 			if ret_val["occupied"] == False:
 				return { 
 					 "status" : "Free"
                   		        }
+			else:
+				return {
+					"status" : "Occupied"
+					}
 
 		else:
 			return { 
