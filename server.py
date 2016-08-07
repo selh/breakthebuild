@@ -4,9 +4,9 @@ import json
 
 
 #calls index method only if url in format /'some character string' --only accepts characters
-urls= ( '/(\w+)', 'index')
+urls= ( '/meeting_rooms/(\w+)', 'meeting_rooms')
 
-class index:
+class meeting_rooms:
 
 	def GET(self, room_name):
 		#connect to mongodb
