@@ -1,9 +1,8 @@
 import web
 import pymongo
-import json
 
 
-#calls index method only if url in format /'some character string' --only accepts characters
+#calls meeting_rooms method only if url in format /'some character string'
 urls= ( '/meeting_rooms/(\w+)', 'meeting_rooms')
 
 class meeting_rooms:
@@ -15,19 +14,21 @@ class meeting_rooms:
 		db = client['breakthebuild']
 		collection = db.test_collection
 			
-		ret_val = collection.find_one({'name': room_name})		
-
+		ret_val = collection.find_one({"name": room_name})		
 		#check if a value was returned, else will error out when trying to read hash
 		if ret_val:
 			if ret_val["occupied"] == False:
-				return "Free\n"
+				return { 
+					 "status" : "Free"
+                  		        }
+
 		else:
-			return "Occupied\n"
-		
+			return { 
+                                "status" : "Occupied"
+                               }
 
 if __name__ == "__main__":
 	app = web.application(urls, globals())
 	app.run()
 
 web.config.debug = False
-
