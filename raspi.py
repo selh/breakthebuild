@@ -21,15 +21,16 @@ db = client["breakthebuild"]
 
 test_collection = db.test_collection
 
+sensor = MotionSensor(4)
 
-sensor = MotionSensor(4,5,2,0.5,False)
+sensor.when_motion = active_count
 
 last = datetime.datetime.utcnow()
 
 while True:
-	if datetime.datetime.utcnow() > last + datetime.timedelta(seconds = 10):
+	if datetime.datetime.utcnow() > last + datetime.timedelta(seconds = 30):
 		print(temp_readings)
-		if temp_readings > 5:
+		if temp_readings >=  3:
 			occupied = True
 		else: 
 			occupied = False
@@ -43,7 +44,6 @@ while True:
 		temp_readings = 0
 		last = datetime.datetime.utcnow()
 					
-	sensor.wait_for_motion(60)
-	time.sleep(2)
-	temp_readings += 1
-	print("fired or timeout") 
+	time.sleep(1)
+
+ 
